@@ -33,6 +33,9 @@ public class Transition : MonoBehaviour
             StartCoroutine(FadeIn(TRANSITION_TIME, fader.GetComponent<Renderer>().material));
             yield return new WaitForSeconds(TRANSITION_TIME);
             player.transform.position = nextLocation.position;
+            if (Globals.Instance.currentLocation != Globals.Location.HALL)
+                Globals.Instance.nextLocation = Globals.Location.HALL;
+            Globals.Instance.currentLocation = Globals.Instance.nextLocation;
             StartCoroutine(FadeOut(TRANSITION_TIME, fader.GetComponent<Renderer>().material));
             yield return new WaitForSeconds(TRANSITION_TIME);
         }

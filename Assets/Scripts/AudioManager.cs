@@ -24,7 +24,7 @@ public class AudioManager : MonoBehaviour
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
-            s.source.volume = Globals.volume;
+            s.source.volume = Globals.Instance.volume;
             s.source.loop = s.loop;
         }
     }
@@ -46,7 +46,7 @@ public class AudioManager : MonoBehaviour
         {
             return;
         }
-        s.source.PlayOneShot(s.clip, Globals.volume);
+        s.source.PlayOneShot(s.clip, Globals.Instance.volume);
     }
 
     public void Stop(string name)

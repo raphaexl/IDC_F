@@ -13,21 +13,24 @@ public class IdcMaster : MonoBehaviour
     IdcMessages[] toRoomMessages;
     IdcMessages[] roomMessages;
 
-    
-   
+    public IdcMessages msg;
+
 
     [SerializeField] AudioClip[] audioClips;
 
     private void Awake()
     {
-        Globals.currentLocation = Globals.Location.HALL;
-        Globals.nextLocation = Globals.Location.HALL;
+        Globals.Instance.currentLocation = Globals.Location.HALL;
+        Globals.Instance.nextLocation = Globals.Location.HALL;
+        msg = new IdcMessages("", "");
         InitIDCMessages();
     }
 
     public void UpdatePositon()
     {
-        transition.ChangeLocation(positions[(int)Globals.nextLocation]);
+        transition.ChangeLocation(positions[(int)Globals.Instance.nextLocation]);
+        
+      //  Debug.Log("Is everything correct ?");
     }
 
     void InitIDCMessages()
@@ -36,11 +39,11 @@ public class IdcMaster : MonoBehaviour
         toRoomMessages = new IdcMessages[5];
         roomMessages = new IdcMessages[5];
 
-        roomMessages[0] = new IdcMessages("COULOIR", "Le Couloir de L'IDC");
-        roomMessages[1] = new IdcMessages("ROOM 1", "La SALLE 1 de L'IDC");
-        roomMessages[2] = new IdcMessages("ROOM 2", "La SALLE 2 de L'IDC");
-        roomMessages[3] = new IdcMessages("ROOM 3", "La SALLE 3 de L'IDC");
-        roomMessages[4] = new IdcMessages("ROOM 4", "La SALLE 4 de L'IDC");
+        roomMessages[0] = new IdcMessages("", "Welcome To The IDC Moroco");
+        roomMessages[1] = new IdcMessages("", "Learning Room N 1");
+        roomMessages[2] = new IdcMessages("", "Learning Room N 1");
+        roomMessages[3] = new IdcMessages("", "The EON Concave Room");
+        roomMessages[4] = new IdcMessages("", "The Icube Room");
         
         toHallMessages[0] = new IdcMessages("","");
         toHallMessages[1] = new IdcMessages("DOOR", " Revenir au COULOIR");
@@ -55,25 +58,28 @@ public class IdcMaster : MonoBehaviour
         toRoomMessages[4] = new IdcMessages("DOOR", " Entrez dans la SALLE 4");
     }
 
-    public IdcMessages DisplayIDCMsg()
+    void DisplayIDCMsg()
     {
-        IdcMessages msg;
-        Debug.Log("Current Location : " + Globals.currentLocation + " Next Location : " + Globals.nextLocation);
-        if (Globals.isGazing)
+
+        if (Globals.Instance.isGazing)
         {
-            if (Globals.currentLocation == Globals.Location.HALL)
+            if (Globals.Instance.currentLocation == Globals.Location.HALL)
             {
-                msg = toRoomMessages[(int)Globals.nextLocation];
+                msg = toRoomMessages[(int)Globals.Instance.nextLocation];
             }
             else
             {
-                msg = toHallMessages[(int)Globals.currentLocation];
+                msg = toHallMessages[(int)Globals.Instance.currentLocation];
             }
         }
         else
         {
-            msg = roomMessages[(int)Globals.currentLocation];
+            msg = roomMessages[(int)Globals.Instance.currentLocation];
         }
-        return msg;
+    }
+
+    void Update()
+    {
+        DisplayIDCMsg();
     }
 }

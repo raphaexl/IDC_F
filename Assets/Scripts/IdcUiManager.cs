@@ -16,6 +16,8 @@ public class IdcUiManager : MonoBehaviour
 
     [SerializeField] GameObject audioPlayer;
 
+    [SerializeField] IdcMaster idcMaster;
+
     private void Awake()
     {
         homeBtn.onClick.AddListener(() =>
@@ -35,12 +37,11 @@ public class IdcUiManager : MonoBehaviour
 
         infoBtn.onClick.AddListener(() =>
         {
-            IdcMessages msg = FindObjectOfType<IdcMaster>().DisplayIDCMsg();
-            PopupSystem.Show(msg.Content, msg.Header);
+            PopupSystem.Show(idcMaster.msg.Content, idcMaster.msg.Header);
             
             backInfoBtn.gameObject.SetActive(true);
             infoBtn.gameObject.SetActive(false);
-            telePortBtn.gameObject.SetActive(Globals.isGazing);
+            telePortBtn.gameObject.SetActive(Globals.Instance.isGazing);
         });
 
         backInfoBtn.onClick.AddListener(() =>
@@ -57,7 +58,7 @@ public class IdcUiManager : MonoBehaviour
             backInfoBtn.gameObject.SetActive(false);
             infoBtn.gameObject.SetActive(true);
             PopupSystem.Hide();
-            FindObjectOfType<IdcMaster>().UpdatePositon();
+            idcMaster.UpdatePositon();
             //if (audioPlayer.is)
             //audioPlayer.clip = audioClips[(int)Globals.nextLocation];
             //FindObjectOfType<AudioPlayer>().ChangeClip();
@@ -82,7 +83,7 @@ public class IdcUiManager : MonoBehaviour
 
     private void Update()
     {
-        if (Globals.isGazing)
+        if (Globals.Instance.isGazing)
         {
             if (!infoBtn.GetComponent<ButtonAnim>().enabled)
                 infoBtn.GetComponent<ButtonAnim>().enabled = true;
@@ -96,12 +97,12 @@ public class IdcUiManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            IdcMessages msg = FindObjectOfType<IdcMaster>().DisplayIDCMsg();
+            IdcMessages msg = FindObjectOfType<IdcMaster>().msg;
             PopupSystem.Show(msg.Content, msg.Header);
 
             backInfoBtn.gameObject.SetActive(true);
             infoBtn.gameObject.SetActive(false);
-            telePortBtn.gameObject.SetActive(Globals.isGazing);
+            telePortBtn.gameObject.SetActive(Globals.Instance.isGazing);
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {

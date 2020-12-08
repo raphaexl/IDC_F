@@ -42,7 +42,7 @@ public class ApplicationManager : MonoBehaviour
         });
 
         volumeSlider.onValueChanged.AddListener(delegate {
-            Globals.volume = volumeSlider.value;
+            Globals.Instance.volume = volumeSlider.value;
         });
 
 

@@ -108,13 +108,14 @@ public class LookAround : MonoBehaviour
         {
             reticlePointer.bigSize();
             UpdateLocationAndDoor(hitObject.collider.gameObject);
-            Globals.isGazing = true;
+            Globals.Instance.isGazing = true;
         }
         else
         {
             reticlePointer.smallSize();
-            Globals.isGazing = false;
+            Globals.Instance.isGazing = false;
         }
+       // Debug.Log("Current Location : " + Globals.Instance.currentLocation + " Next Location : " + Globals.Instance.nextLocation);
     }
 
     private void Update()
@@ -141,43 +142,43 @@ public class LookAround : MonoBehaviour
     {
         if (gameObject.name == "doorToRoom_1")
         {
-            Globals.currentLocation = Globals.Location.HALL;
-            Globals.nextLocation = Globals.Location.IDC_ROOM_1;
+            Globals.Instance.currentLocation = Globals.Location.HALL;
+            Globals.Instance.nextLocation = Globals.Location.IDC_ROOM_1;
         }
         else if (gameObject.name == "doorToRoom_2")
         {
-            Globals.currentLocation = Globals.Location.HALL;
-            Globals.nextLocation = Globals.Location.IDC_ROOM_2;
+            Globals.Instance.currentLocation = Globals.Location.HALL;
+            Globals.Instance.nextLocation = Globals.Location.IDC_ROOM_2;
         }
         else if (gameObject.name == "doorToRoom_3")
         {
-            Globals.currentLocation = Globals.Location.HALL;
-            Globals.nextLocation = Globals.Location.IDC_ROOM_3;
+            Globals.Instance.currentLocation = Globals.Location.HALL;
+            Globals.Instance.nextLocation = Globals.Location.IDC_ROOM_3;
         }
         else if (gameObject.name == "doorToRoom_4")
         {
-            Globals.currentLocation = Globals.Location.HALL;
-            Globals.nextLocation = Globals.Location.IDC_ROOM_4;
+            Globals.Instance.currentLocation = Globals.Location.HALL;
+            Globals.Instance.nextLocation = Globals.Location.IDC_ROOM_4;
         }
         else if (gameObject.name == "ExitRoom_1")
         {
-            Globals.currentLocation = Globals.Location.IDC_ROOM_1;
-            Globals.nextLocation = Globals.Location.HALL;
+            Globals.Instance.currentLocation = Globals.Location.IDC_ROOM_1;
+            Globals.Instance.nextLocation = Globals.Location.HALL;
         }
         else if (gameObject.name == "ExitRoom_2")
         {
-            Globals.currentLocation = Globals.Location.IDC_ROOM_2;
-            Globals.nextLocation = Globals.Location.HALL;
+            Globals.Instance.currentLocation = Globals.Location.IDC_ROOM_2;
+            Globals.Instance.nextLocation = Globals.Location.HALL;
         }
         else if (gameObject.name == "ExitRoom_3")
         {
-            Globals.currentLocation = Globals.Location.IDC_ROOM_3;
-            Globals.nextLocation = Globals.Location.HALL;
+            Globals.Instance.currentLocation = Globals.Location.IDC_ROOM_3;
+            Globals.Instance.nextLocation = Globals.Location.HALL;
         }
         else if (gameObject.name == "ExitRoom_4")
         {
-            Globals.currentLocation = Globals.Location.IDC_ROOM_4;
-            Globals.nextLocation = Globals.Location.HALL;
+            Globals.Instance.currentLocation = Globals.Location.IDC_ROOM_4;
+            Globals.Instance.nextLocation = Globals.Location.HALL;
         }
     }
 }

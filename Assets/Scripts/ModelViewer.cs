@@ -21,12 +21,27 @@ public class ModelViewer : MonoBehaviour
         instance = this;
     }
 
+    public static void SetModel(GameObject prefab)
+    {
+        ModelViewer.instance.model = prefab;
+    }
+
+    public static GameObject GetModel()
+    {
+        return ModelViewer.instance.model;
+    }
+
+    public static void SetActive(bool active)
+    {
+        ModelViewer.instance.model.SetActive(active);
+    }
+
     void Scale(float delta, float speed)
     {
-        model.transform.localScale -= Vector3.one * delta * speed * Time.deltaTime;
-        model.transform.localScale = new Vector3(Mathf.Clamp(model.transform.localScale.x, scaleMinBound, scaleMaxBound),
-            Mathf.Clamp(model.transform.localScale.y, scaleMinBound, scaleMaxBound),
-            Mathf.Clamp(model.transform.localScale.z, scaleMinBound, scaleMaxBound));
+        ModelViewer.instance.model.transform.localScale -= Vector3.one * delta * speed * Time.deltaTime;
+        ModelViewer.instance.model.transform.localScale = new Vector3(Mathf.Clamp(ModelViewer.instance.model.transform.localScale.x, scaleMinBound, scaleMaxBound),
+            Mathf.Clamp(ModelViewer.instance.model.transform.localScale.y, scaleMinBound, scaleMaxBound),
+            Mathf.Clamp(ModelViewer.instance.model.transform.localScale.z, scaleMinBound, scaleMaxBound));
     }
 
     void processTouchInput()
@@ -52,8 +67,8 @@ public class ModelViewer : MonoBehaviour
 
                 float damp = lerpSpeed;
                 rotSpeed = Vector3.Lerp(rotSpeed, Vector3.zero, damp);
-                model.transform.RotateAround(Vector3.up, -rotSpeed.x * speed * Time.deltaTime);
-                model.transform.RotateAround(Vector3.right, rotSpeed.y * speed * Time.deltaTime);
+                ModelViewer.instance.model.transform.RotateAround(Vector3.up, -rotSpeed.x * speed * Time.deltaTime);
+                ModelViewer.instance.model.transform.RotateAround(Vector3.right, rotSpeed.y * speed * Time.deltaTime);
             }
         }
     }
@@ -66,8 +81,8 @@ public class ModelViewer : MonoBehaviour
         rotSpeed = new Vector2(mouseX, mouseY);
         float damp = lerpSpeed;
         rotSpeed = Vector3.Lerp(rotSpeed, Vector3.zero, damp);
-        model.transform.RotateAround(Vector3.up, -rotSpeed.x * speed * Time.deltaTime);
-        model.transform.RotateAround(Vector3.right, rotSpeed.y * speed * Time.deltaTime);
+        ModelViewer.instance.model.transform.RotateAround(Vector3.up, -rotSpeed.x * speed * Time.deltaTime);
+        ModelViewer.instance.model.transform.RotateAround(Vector3.right, rotSpeed.y * speed * Time.deltaTime);
 
     }
 
