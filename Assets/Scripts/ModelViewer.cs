@@ -33,6 +33,7 @@ public class ModelViewer : MonoBehaviour
 
     public static void SetActive(bool active)
     {
+        if (ModelViewer.instance.model)
         ModelViewer.instance.model.SetActive(active);
     }
 

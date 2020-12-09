@@ -20,8 +20,10 @@ public class LookAround : MonoBehaviour
 
     Camera camera;
     RaycastHit hitObject;
+    Ray rayReticle;
 
-   
+
+
 
     private void Start()
     {
@@ -34,6 +36,7 @@ public class LookAround : MonoBehaviour
             transform.SetParent(playerBody.transform);
         }else if (SystemInfo.deviceType == DeviceType.Desktop)
         {
+          //  Cursor.lockState = CursorLockMode.Locked;
             mouseSensitivity = 100f;
         }
         else
@@ -102,9 +105,9 @@ public class LookAround : MonoBehaviour
     void ReticlePointerUpdate()
     {
        // Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        Ray ray = camera.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
+        rayReticle = camera.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
 
-        if (Physics.Raycast(ray, out hitObject, 25f))
+        if (Physics.Raycast(rayReticle, out hitObject, 25f))
         {
             reticlePointer.bigSize();
             UpdateLocationAndDoor(hitObject.collider.gameObject);

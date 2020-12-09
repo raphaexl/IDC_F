@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
 
     public Sound[] sounds;
 
+    private Sound current = null;
+
     private void Awake()
     {
         if (instance == null)
@@ -36,6 +38,7 @@ public class AudioManager : MonoBehaviour
         {
             return;
         }
+        current = s;
         s.source.Play();
     }
 
@@ -49,13 +52,39 @@ public class AudioManager : MonoBehaviour
         s.source.PlayOneShot(s.clip, Globals.Instance.volume);
     }
 
-    public void Stop(string name)
+    public void Stop()
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        if (current == null) return;
+        else
         {
-            return;
+            current.source.Stop();
         }
-        s.source.Stop();
+    }
+
+    public void Pause()
+    {
+        if (current == null) return;
+        else
+        {
+            current.source.Pause();
+        }
+    }
+
+    public void Continue()
+    {
+        if (current == null) return;
+        else
+        {
+            current.source.Play();
+        }
+    }
+
+    private void Update()
+    {
+        if (current != null)
+        {
+            current.source.volume = Globals.Instance.volume;
+        }
+  
     }
 }

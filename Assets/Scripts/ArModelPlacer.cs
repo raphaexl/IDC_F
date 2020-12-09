@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
@@ -16,16 +17,25 @@ public class ArModelPlacer : MonoBehaviour
 
     private bool placed = false;
     private bool foundPlane = false;
-    [SerializeField] Button cameraBtn;
+  
+    [SerializeField]  private Button cameraBtn;
+    [SerializeField]  private TextMeshProUGUI waitMsg;
+    [SerializeField]  private TextMeshProUGUI placeMsg;
+    
 
     // Start is called before the first frame update
 
     void  Awake()
     {
+        
+       // cameraBtn = arUi.transform.GetChild(0).GetComponent<Button>();
         cameraBtn.onClick.AddListener(() =>
         {
             CameraReset();
         });
+       // waitMsg = arUi.transform.GetChild(1).GetComponent<TextMesh>();
+       // placeMsg = arUi.transform.GetChild(2).GetComponent<TextMesh>();
+       
     }
 
     void Start()
@@ -36,6 +46,8 @@ public class ArModelPlacer : MonoBehaviour
         visual.SetActive(false);
         viewer = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
         viewer.SetActive(false);
+        waitMsg.gameObject.SetActive(true);
+        placeMsg.gameObject.SetActive(false);
     }
 
     void CheckPlanes()
@@ -49,6 +61,8 @@ public class ArModelPlacer : MonoBehaviour
             transform.position = hits[0].pose.position;
             transform.rotation = hits[0].pose.rotation;
             visual.SetActive(true);
+            waitMsg.gameObject.SetActive(false);
+            placeMsg.gameObject.SetActive(true);
             foundPlane = true;
         }
     }
@@ -68,6 +82,7 @@ public class ArModelPlacer : MonoBehaviour
                     visual.SetActive(false);
                     placed = true;
                     cameraBtn.gameObject.SetActive(true);
+                    placeMsg.gameObject.SetActive(false);
                     ModelViewer.SetModel(viewer);
                 }
             }
@@ -81,6 +96,8 @@ public class ArModelPlacer : MonoBehaviour
             viewer.SetActive(false);
             foundPlane = false;
             placed = false;
+            waitMsg.gameObject.SetActive(true);
+            placeMsg.gameObject.SetActive(false);
             cameraBtn.gameObject.SetActive(false);
         }
     }

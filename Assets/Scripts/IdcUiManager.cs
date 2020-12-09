@@ -28,11 +28,13 @@ public class IdcUiManager : MonoBehaviour
         audioShowBtn.onClick.AddListener(() =>
         {
             ShowAudio();
+            FindObjectOfType<AudioManager>().Pause();
         });
 
         audioHideBtn.onClick.AddListener(() =>
         {
             HideAudio();
+            FindObjectOfType<AudioManager>().Continue();
         });
 
         infoBtn.onClick.AddListener(() =>
@@ -59,9 +61,7 @@ public class IdcUiManager : MonoBehaviour
             infoBtn.gameObject.SetActive(true);
             PopupSystem.Hide();
             idcMaster.UpdatePositon();
-            //if (audioPlayer.is)
-            //audioPlayer.clip = audioClips[(int)Globals.nextLocation];
-            //FindObjectOfType<AudioPlayer>().ChangeClip();
+            //audioPlayer.SetActive(false);
         });
 
 
@@ -70,6 +70,7 @@ public class IdcUiManager : MonoBehaviour
     void ShowAudio()
     {
         audioPlayer.SetActive(true);
+       // audioPlayer.transform.GetChild(1).gameObject.transform.GetChild(0).transform.gameObject.SetActive(false);
         audioHideBtn.gameObject.SetActive(true);
         audioShowBtn.gameObject.SetActive(false);
     }

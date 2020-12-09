@@ -12,4 +12,5 @@ public class Globals : Singleton<Globals>
     }
     public  Location currentLocation;
     public  Location nextLocation;
+    public AudioClip currentClip;
 }

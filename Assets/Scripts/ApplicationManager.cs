@@ -41,6 +41,7 @@ public class ApplicationManager : MonoBehaviour
             mainMenuGo.SetActive(true);
         });
 
+        volumeSlider.value = Globals.Instance.volume;
         volumeSlider.onValueChanged.AddListener(delegate {
             Globals.Instance.volume = volumeSlider.value;
         });

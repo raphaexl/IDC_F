@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -7,18 +8,24 @@ public class IcubeUiManager : MonoBehaviour
     [SerializeField] Button uiToggleBtn;
     [SerializeField] Button videoCloseBtn;
     [SerializeField] Button homeBtn;
-   
+
+    [SerializeField] private Button cameraBtn;
+    [SerializeField] private TextMeshProUGUI waitMsg;
+    [SerializeField] private TextMeshProUGUI placeMsg;
+
     [SerializeField] Button infoBtn;
     [SerializeField] Button hideBtn;
 
     [SerializeField] GameObject videoPlayer;
     [SerializeField] GameObject menu;
+    [SerializeField] GameObject toggleDissassembly = null;
 
-   
+
     [SerializeField] VideoController videoController;
 
     private void Awake()
     {
+        
         homeBtn.onClick.AddListener(() =>
         {
             SceneManager.LoadScene((int)Scenes.MENU);
@@ -36,6 +43,7 @@ public class IcubeUiManager : MonoBehaviour
 
         infoBtn.onClick.AddListener(() =>
         {
+            FindObjectOfType<AudioManager>().Pause();
             VideoDisplay();
         });
 
@@ -45,6 +53,11 @@ public class IcubeUiManager : MonoBehaviour
             videoPlayer.SetActive(false);
             videoCloseBtn.gameObject.SetActive(false);
             menu.SetActive(true);
+            ModelViewer.SetActive(true);
+            if (cameraBtn)
+            { cameraBtn.gameObject.SetActive(true); }
+            if (toggleDissassembly) { toggleDissassembly.SetActive(true); }
+            FindObjectOfType<AudioManager>().Continue();
         });
     }
 
@@ -62,11 +75,23 @@ public class IcubeUiManager : MonoBehaviour
 
     public void VideoDisplay()
     {
-        uiToggleBtn.gameObject.SetActive(false);
         menu.SetActive(false);
+        ModelViewer.SetActive(false);
+        if (cameraBtn && cameraBtn.gameObject.activeSelf)
+        { cameraBtn.gameObject.SetActive(false); }
+        if (waitMsg && waitMsg.gameObject.activeSelf)
+        { waitMsg.gameObject.SetActive(false); }
+        if (placeMsg && placeMsg.gameObject.activeSelf)
+        { placeMsg.gameObject.SetActive(false); }
+        if (toggleDissassembly) { toggleDissassembly.SetActive(false); }
         videoCloseBtn.gameObject.SetActive(true);
         videoPlayer.SetActive(true);
         videoController.Prepare();
+        if (videoController.IsPrepared)
+        {
+            uiToggleBtn.gameObject.SetActive(false);
+            
+        }
     }
 
     

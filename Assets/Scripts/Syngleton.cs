@@ -22,8 +22,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (m_ShuttingDown)
             {
-                Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
+                if (Application.isEditor)
+                {
+                    Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
                     "' already destroyed. Returning null.");
+                }
                 return null;
             }
 

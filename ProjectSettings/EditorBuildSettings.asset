@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-    guid: f28e60a823b3cfc428070255e65ce2e7
+    guid: e9f3cb5fc8825654c98390929b856a88
   - enabled: 1
     path: Assets/Scenes/360_Pict.unity
     guid: 2ee43719a7fc44548a6f1ec2aa25a379

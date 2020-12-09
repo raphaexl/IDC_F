@@ -60,22 +60,30 @@ public class VideoController : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     private void OnEnable()
     {
-        videoPlayer.errorReceived += errorReceived;
-        videoPlayer.frameReady += frameReady;
-        videoPlayer.loopPointReached += loopPointReached;
-        videoPlayer.prepareCompleted += prepareCompleted;
-        videoPlayer.seekCompleted += seekCompleted;
-        videoPlayer.started += started;
+        if (Application.isEditor)
+        {
+            videoPlayer.errorReceived += errorReceived;
+            videoPlayer.frameReady += frameReady;
+            videoPlayer.loopPointReached += loopPointReached;
+            videoPlayer.prepareCompleted += prepareCompleted;
+            videoPlayer.seekCompleted += seekCompleted;
+            videoPlayer.started += started;
+        }
+        
     }
 
     private void OnDisable()
     {
-        videoPlayer.errorReceived -= errorReceived;
-        videoPlayer.frameReady -= frameReady;
-        videoPlayer.loopPointReached -= loopPointReached;
-        videoPlayer.prepareCompleted -= prepareCompleted;
-        videoPlayer.seekCompleted -= seekCompleted;
-        videoPlayer.started -= started;
+         if (Application.isEditor)
+        {
+            videoPlayer.errorReceived -= errorReceived;
+            videoPlayer.frameReady -= frameReady;
+            videoPlayer.loopPointReached -= loopPointReached;
+            videoPlayer.prepareCompleted -= prepareCompleted;
+            videoPlayer.seekCompleted -= seekCompleted;
+            videoPlayer.started -= started;
+        }
+            
     }
 
     public void OnPointerEnter(PointerEventData ped)
@@ -188,11 +196,14 @@ public class VideoController : MonoBehaviour, IPointerEnterHandler, IPointerExit
         videoPlayer.loopPointReached += EndReahed;
         videoPlayer.Prepare();
 
-        Debug.Log("Video can set direct audio Volume " + videoPlayer.canSetDirectAudioVolume);
-        Debug.Log("Video can set PlayBack speed " + videoPlayer.canSetPlaybackSpeed);
-        Debug.Log("Video can skip on drop " + videoPlayer.canSetSkipOnDrop);
-        Debug.Log("Video can set time " + videoPlayer.canSetTime);
-        Debug.Log("Video can step " + videoPlayer.canStep);
+        if (Application.isEditor)
+        {
+            Debug.Log("Video can set direct audio Volume " + videoPlayer.canSetDirectAudioVolume);
+            Debug.Log("Video can set PlayBack speed " + videoPlayer.canSetPlaybackSpeed);
+            Debug.Log("Video can skip on drop " + videoPlayer.canSetSkipOnDrop);
+            Debug.Log("Video can set time " + videoPlayer.canSetTime);
+            Debug.Log("Video can step " + videoPlayer.canStep);
+        }
         //videoPlayer.StepForward();
     }
 
